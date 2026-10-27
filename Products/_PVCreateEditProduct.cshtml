@@ -1,0 +1,43 @@
+﻿@model BE1_25dh110156.Models.Product
+
+<div class="form-group">
+    <div class="control-label col-md-2">Danh mục</div>
+    <div class="col-md-10">
+        @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="control-label col-md-2">Tên sản phẩm</div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="control-label col-md-2">Mô tả</div>
+    <div class="col-md-10">
+        <!-- Ô nhập mô tả dạng Textarea kích thước lớn dùng chung cho cả Create và Edit -->
+        @Html.TextAreaFor(model => model.ProductDescription, new { @class = "form-control", style = "width: 100%; height: 120px; padding: 5px; box-sizing: border-box; resize: vertical;" })
+        @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="control-label col-md-2">Đơn giá</div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="control-label col-md-2">Hình ảnh</div>
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.UploadImg, new { type = "file", @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ProductImage, "", new { @class = "text-danger" })
+    </div>
+</div>
+

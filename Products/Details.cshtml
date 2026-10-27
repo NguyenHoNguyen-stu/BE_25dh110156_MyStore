@@ -1,0 +1,44 @@
+﻿@model BE1_25dh110156.Models.Product
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2 class="bg-success" style="padding:10px; color:white;">CHI TIẾT SẢN PHẨM</h2>
+
+<div class="container" style="margin-top:20px;">
+    <div class="row">
+        <!-- Cột bên trái: Hiển thị hình ảnh sản phẩm lớn -->
+        <div class="col-md-4">
+            <img src="@Url.Content(Model.ProductImage)" class="img-thumbnail" style="width:100%; max-height:350px; object-fit:contain;" alt="Ảnh sản phẩm" />
+        </div>
+
+        <!-- Cột bên phải: Hiển thị thông tin chi tiết -->
+        <div class="col-md-8">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-3" style="text-align:left; font-weight:bold;">Tên sản phẩm:</label>
+                    <div class="col-md-9" style="padding-top:7px;">@Model.ProductName</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" style="text-align:left; font-weight:bold;">Đơn giá:</label>
+                    <div class="col-md-9" style="padding-top:7px; color:red; font-weight:bold;">@String.Format("{0:N0}", Model.ProductPrice) VNĐ</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" style="text-align:left; font-weight:bold;">Danh mục:</label>
+                    <div class="col-md-9" style="padding-top:7px;">@Model.Category.CategoryName</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" style="text-align:left; font-weight:bold;">Mô tả:</label>
+                    <div class="col-md-9" style="padding-top:7px; text-align:justify;">@Model.ProductDescription</div>
+                </div>
+            </div>
+
+            <div style="margin-top:30px; padding-left:15px;">
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.ProductID }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+</div>
+
