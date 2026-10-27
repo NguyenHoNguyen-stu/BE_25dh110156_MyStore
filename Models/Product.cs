@@ -11,7 +11,10 @@ namespace BE1_25dh110156.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,7 +29,9 @@ namespace BE1_25dh110156.Models
         public string ProductDecription { get; set; }
         public decimal ProductPrice { get; set; }
         public string ProductImage { get; set; }
-    
+
+        [NotMapped]
+        public HttpPostedFileBase UploadImg { get; set; }
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
