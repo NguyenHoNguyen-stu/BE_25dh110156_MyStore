@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BE1_25dh110156.Models
+namespace _25DH110156_MyStore.Models
 {
     using System;
     using System.Collections.Generic;
