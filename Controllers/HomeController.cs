@@ -1,4 +1,6 @@
-﻿using System;
+﻿using _25DH110156_MyStore.Models;
+using _25DH110651_MyStore.Models.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +10,35 @@ namespace _25DH110156_MyStore.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private MyStoreEntities db = new MyStoreEntities();
+
+        public ActionResult Index(string searchTerm, int? page)
         {
-            return View();
-        }
+            var model = new HomeProductVM();
+            var products = db.Products.AsQueryable();
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            // Tìm kiếm sản phẩm
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                model.SearchTerm = searchTerm;
+                products = products.Where(p => p.ProductName.Contains(searchTerm) ||
+                                               p.ProductDescription.Contains(searchTerm) ||
+                                               p.Category.CategoryName.Contains(searchTerm));
+            }
 
-            return View();
-        }
+            int pageNumber = page ?? 1;
+            int pageSize = 6;
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            // 1. Lấy top 10 sản phẩm bán chạy nhất (Featured)
+            model.FeaturedProducts = products.OrderByDescending(p => p.OrderDetails.Count())
+                                             .Take(10).ToList();
 
-            return View();
+            // 2. Lấy 20 sản phẩm mới nhất (hoặc ít người mua nhất tùy theo yêu cầu cụ thể) và phân trang
+            model.NewProducts = products.OrderBy(p => p.OrderDetails.Count()) // Hoặc OrderByDescending theo ngày
+                                        .Take(20)
+                                        .ToPagedList(pageNumber, pageSize);
+
+            return View(model);
         }
     }
 }
